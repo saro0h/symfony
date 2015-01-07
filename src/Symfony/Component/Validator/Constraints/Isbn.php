@@ -43,17 +43,15 @@ class Isbn extends Constraint
     public $type;
     public $message;
 
-    /**
-     * @deprecated since version 2.5, to be removed in 3.0. Use option "type" instead.
-     * @var bool
-     */
-    public $isbn10 = false;
 
-    /**
-     * @deprecated since version 2.5, to be removed in 3.0. Use option "type" instead.
-     * @var bool
-     */
-    public $isbn13 = false;
+    public function __construct($options = null)
+    {
+        parent::__construct($options);
+
+        if (null !== $this->type && !in_array($this->type, array('isbn10', 'isbn13'))) {
+            throw new InvalidOptionsException('The "type" option must be either "isbn10" or "isbn13".', $options);
+        }
+    }
 
     /**
      * {@inheritdoc}
