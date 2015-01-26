@@ -118,7 +118,7 @@ class RecursiveValidator implements ValidatorInterface
         // The following code must be removed in 3.0
         $numArgs = func_num_args();
         if ($numArgs > 3) {
-            trigger_error('The '.__METHOD__.' method is deprecated in version 2.5 and will be removed in version 3.0. Use the Symfony\Component\Validator\Validator\ValidatorInterface::validate method instead.', E_USER_DEPRECATED);
+            trigger_error('The use of this method with the arguments "traverse" and "deep" is deprecated in version 2.5 and will be removed in version 3.0. Use this method with the following arguments instead "$value, $constraints, $groups".', E_USER_DEPRECATED);
             $traverse = func_get_arg(3);
             $deep = func_get_arg(4);
             $constraints = new Valid(array('traverse' => $traverse, 'deep' => $deep));
@@ -157,19 +157,11 @@ class RecursiveValidator implements ValidatorInterface
             ->getViolations();
     }
 
-    /**
-     * @internal
-     * @deprecated since version 2.5, to be removed in 3.0.
-     */
     private static function testConstraints($constraints)
     {
         return null === $constraints || $constraints instanceof Constraint || (is_array($constraints) && current($constraints) instanceof Constraint);
     }
 
-    /**
-     * @internal
-     * @deprecated since version 2.5, to be removed in 3.0.
-     */
     private static function testGroups($groups)
     {
         return null === $groups || is_string($groups) || $groups instanceof GroupSequence || (is_array($groups) && (is_string(current($groups)) || current($groups) instanceof GroupSequence));
